@@ -48,6 +48,7 @@ export const fetchAsyncShows = createAsyncThunk(
       reducers:{
         removeSelectedMovieOrShow: (state) => {
             state.selectMovieOrShow = {};
+            //in sync red u don't need ...state
           },
       },
       extraReducers:{
@@ -55,8 +56,11 @@ export const fetchAsyncShows = createAsyncThunk(
               console.log("Pending")
           },
           [fetchAsyncMovies.fulfilled]:(state,{payload})=>{
+            //in payload u r getting api data
               console.log("Fetched Successfully")
               return {...state,movies:payload}
+
+              //in async u need ....state
           },
           [fetchAsyncMovies.rejected]:()=>{
             console.log("Rejected ")
@@ -73,7 +77,13 @@ export const fetchAsyncShows = createAsyncThunk(
   })
 
 export const { removeSelectedMovieOrShow } = movieSlice.actions;
+//to dipatch actions
+
 export const getAllMovies = (state) => state.movies.movies;
 export const getAllShows = (state) => state.movies.shows;
 export const getSelectedMovieOrShow = (state) => state.movies.selectMovieOrShow;
+//movies after state is whatyou give name of reducer in store(give name of slice also same)
+
+
 export default movieSlice.reducer;
+//^^ this is not reducers only, it is "reducer" sending all reducer (incl extra) to store
